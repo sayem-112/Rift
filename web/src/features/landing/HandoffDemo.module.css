@@ -1,0 +1,400 @@
+.stage {
+  position: relative;
+  margin: 0;
+}
+
+/*
+ * Composition: the laptop fills the stage; the phone stands in front of its
+ * lower-left corner, over the laptop's sidebar, so nothing that matters is
+ * hidden. Sizes inside each device use container query units, so the scene
+ * scales as one object from a phone screen to a wide desktop.
+ */
+.scene {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+
+/* Laptop window */
+.desktop {
+  container-type: inline-size;
+  position: absolute;
+  top: 0;
+  left: 13%;
+  right: 0;
+  bottom: 7%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  background: var(--ctp-crust);
+  box-shadow:
+    inset 0 0 0 1px var(--ctp-base),
+    0 50px 100px -40px rgb(0 0 0 / 0.95),
+    0 0 140px -50px color-mix(in oklab, var(--accent) 22%, transparent);
+  overflow: hidden;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  flex: none;
+  height: 4.2cqw;
+  padding-inline: 2cqw;
+  background: var(--ctp-mantle);
+  border-bottom: 1px solid var(--ctp-base);
+}
+.titleDots {
+  display: flex;
+  gap: 0.9cqw;
+}
+.titleDots i {
+  width: 1.1cqw;
+  height: 1.1cqw;
+  border-radius: 50%;
+  background: var(--ctp-surface0);
+}
+
+.desktopBody {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 12.5% minmax(0, 1fr);
+}
+
+/* The app's sidebar, sketched; the phone stands in front of it. */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqw;
+  padding: 2.6cqw 2cqw;
+  border-right: 1px solid var(--ctp-base);
+}
+.sideBrand {
+  width: 50%;
+  height: 1.4cqw;
+  margin-bottom: 1.4cqw;
+  border-radius: 99px;
+  background: var(--ctp-surface0);
+}
+.sideItem {
+  height: 2.2cqw;
+  border-radius: 99px;
+  background: var(--ctp-base);
+}
+.sideItem[data-active] {
+  background: var(--ctp-surface0);
+}
+
+.main {
+  position: relative;
+  min-width: 0;
+}
+
+/* Library */
+.library {
+  position: absolute;
+  inset: 0;
+  padding: 2.6cqw 3.4cqw;
+}
+
+.libraryHead {
+  margin-bottom: 2cqw;
+  font-family: var(--font-display);
+  font-size: 2.2cqw;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 2.6cqw 2.2cqw;
+}
+
+.shelfCover {
+  position: relative;
+  border-radius: var(--radius-cover);
+  box-shadow: 0 1.2cqw 2.4cqw -1.2cqw rgb(0 0 0 / 0.9);
+}
+.shelfCover[data-target] {
+  z-index: 1;
+}
+
+.shelfCover {
+  transition: box-shadow 300ms var(--ease-out);
+}
+.shelfCover[data-target] {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 1.2cqw 3cqw -1cqw var(--accent-glow);
+}
+
+/* Reader */
+.reader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  padding: 7cqw 4cqw 4cqw;
+}
+
+/* A page, shared by the phone and the laptop; type scales with each device. */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-family: "Literata Variable", Georgia, serif;
+  color: var(--ctp-subtext1);
+}
+
+.runningHead {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-ui);
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.text {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  text-wrap: pretty;
+}
+.text p + p {
+  margin-top: 0.7em;
+}
+
+.sectionNo {
+  font-weight: 650;
+  color: var(--ctp-subtext0);
+}
+
+.folio {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  font-family: var(--font-ui);
+  color: var(--text-muted);
+}
+.folio > :first-child {
+  flex: 1;
+}
+
+/* Two pages side by side, as the reader lays a book out on a wide screen. */
+.spread {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5cqw;
+  width: 100%;
+  max-width: 70cqw;
+}
+.spread > :first-child {
+  opacity: 0.55;
+}
+
+.desktopPage {
+  position: relative;
+  font-size: 1.52cqw;
+  line-height: 1.6;
+}
+
+/* Your place, marked: a ribbon hanging from the top of the page you were on. */
+.ribbon {
+  position: absolute;
+  top: -1.6cqw;
+  left: 46%;
+  width: 1.5cqw;
+  height: 6cqw;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+  transform-origin: top;
+}
+.desktopPage .runningHead,
+.desktopPage .folio {
+  font-size: 1.05cqw;
+}
+.desktopPage .text {
+  margin-block: 2.6cqw;
+}
+
+.toastWrap {
+  position: absolute;
+  left: 50%;
+  top: 1.4cqw;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.toast {
+  --glass-tint: var(--ctp-base);
+  --glass-opacity: 72%;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  padding: 0.9cqw 1.4cqw 0.9cqw 1.9cqw;
+  font-size: max(9px, 1.5cqw);
+  color: var(--text);
+}
+.toast strong {
+  font-weight: 650;
+}
+.undo {
+  font-weight: 650;
+  color: var(--accent);
+}
+.toastClose {
+  color: var(--text-muted);
+}
+
+/* Phone */
+.phone {
+  container-type: inline-size;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 25%;
+  aspect-ratio: 9 / 19.5;
+  /*
+   * A thin metal band around the glass: percentages, not cqw, because cqw on
+   * the container itself would resolve against the viewport. Padding
+   * percentages follow the width, so the bezel is even on all four sides.
+   */
+  padding: 1.7%;
+  border-radius: 16% / 7.4%;
+  background: linear-gradient(150deg, #4a4c62, #1c1c28 22%, #121219 60%, #34364a);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.14),
+    inset 0 0 0 2.5px #08080c,
+    0 40px 70px -24px rgb(0 0 0 / 0.95),
+    0 0 0 1px rgb(0 0 0 / 0.7);
+}
+
+/* Side buttons: power on the right, volume on the left. */
+.phone::before,
+.phone::after {
+  content: "";
+  position: absolute;
+  width: 1.3%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #2a2b3a, #4a4c62);
+}
+.phone::before {
+  right: -1%;
+  top: 25%;
+  height: 11%;
+}
+.phone::after {
+  left: -1%;
+  top: 20%;
+  height: 7%;
+  box-shadow: 0 calc(100% + 8px) 0 #34364a;
+}
+
+.phoneScreen {
+  position: relative;
+  height: 100%;
+  /* The outer corner less the bezel, so the glass sits concentric in the band. */
+  border-radius: 13.8cqw;
+  background: #000;
+  overflow: hidden;
+}
+
+.island {
+  position: absolute;
+  z-index: 2;
+  top: 3.4cqw;
+  left: 50%;
+  width: 27cqw;
+  height: 7.6cqw;
+  translate: -50% 0;
+  border-radius: 99px;
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+.island::after {
+  content: "";
+  position: absolute;
+  right: 2.4cqw;
+  top: 50%;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2c3150, #0a0a12 60%);
+}
+
+.phonePageWrap {
+  position: absolute;
+  inset: 0;
+  padding: 17cqw 8cqw 7cqw;
+  background: #000;
+}
+
+.phonePage {
+  font-size: 5.6cqw;
+  line-height: 1.55;
+}
+.phonePage .runningHead,
+.phonePage .folio {
+  font-size: 3.6cqw;
+}
+.phonePage .text {
+  margin-block: 6cqw;
+}
+
+/* The phone goes down: the screen dims but stays readable. */
+.dim {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+}
+
+/* The travelling bookmark's layer: above both devices, never clipped by either. */
+.flight {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+/* The travelling bookmark keeps one size wherever it is. */
+.bookmark {
+  --glass-tint: var(--ctp-base);
+  --glass-opacity: 82%;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.45em 0.9em 0.45em 0.45em;
+  font-family: var(--font-ui);
+  font-size: clamp(8px, 0.95vw, 12.5px);
+  white-space: nowrap;
+  outline: 1.5px solid var(--accent);
+}
+.bookmarkCover {
+  width: 2.2em;
+  flex: none;
+}
+.bookmarkText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  color: var(--text-secondary);
+}
+.bookmarkText strong {
+  font-weight: 650;
+  color: var(--text);
+}
+
+@media (max-width: 640px) {
+  .bookmark {
+    font-size: 8px;
+  }
+}

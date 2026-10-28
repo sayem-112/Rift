@@ -1,0 +1,96 @@
+/*
+ * Headline over the stage: two short lines at display size, then the laptop
+ * and phone wide enough for their pages to be read.
+ */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: clamp(6rem, 11vh, 7.25rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+/* A single wash of accent light behind the stage; the rest of the page stays true black. */
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 34%;
+  width: min(90rem, 120%);
+  aspect-ratio: 2 / 1;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 11%, transparent), transparent);
+  pointer-events: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleSecond {
+  color: var(--ctp-subtext0);
+}
+
+.sub {
+  max-width: 54ch;
+  margin-top: var(--space-6);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.primary {
+  gap: 10px;
+  padding-inline: 1.5rem 1.35rem;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.5rem 0.25rem;
+  font-weight: 550;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.secondary:hover {
+  color: var(--text);
+}
+.secondary svg {
+  transition: transform var(--dur-base) var(--spring-pop);
+}
+.secondary:hover svg {
+  transform: translateY(3px);
+}
+
+.demo {
+  width: min(100%, 68rem);
+  margin-top: clamp(2.25rem, 4.5vh, 3rem);
+}

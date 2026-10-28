@@ -1,0 +1,179 @@
+.dialog {
+  width: min(36rem, calc(100vw - 2rem));
+  max-width: none;
+  max-height: none;
+  margin: 12vh auto auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  overflow: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-move) var(--spring-pop),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+}
+
+.dialog:not([open]) {
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.55);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 1;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.dialog:not([open])::backdrop {
+  opacity: 0;
+}
+
+.panel {
+  --glass-tint: var(--ctp-mantle);
+  overflow: hidden;
+}
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  height: 3.5rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--ctp-text) 9%, transparent);
+}
+
+.searchIcon {
+  flex: none;
+  color: var(--text-muted);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font-size: var(--text-lg);
+  outline: none;
+}
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.kbd {
+  flex: none;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--bg-hover);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+}
+
+.results {
+  max-height: min(26rem, 60vh);
+  overflow-y: auto;
+  padding: var(--space-2);
+  overscroll-behavior: contain;
+}
+
+.group + .group {
+  margin-top: var(--space-2);
+}
+
+.groupLabel {
+  padding: var(--space-2) var(--space-3) var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 550;
+  color: var(--text-muted);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3.25rem;
+  padding: 0.4rem var(--space-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.option[aria-selected="true"] {
+  background: var(--bg-selected);
+}
+
+.thumb {
+  flex: none;
+  width: 1.75rem;
+}
+
+.actionIcon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-hover);
+  color: var(--text-secondary);
+}
+
+.optionText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.optionTitle {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.optionMeta {
+  flex: none;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.optionText .optionMeta {
+  flex: initial;
+}
+
+/* Matched letters are the brightest ink in the row; the rest of the title steps back. */
+.optionTitle {
+  color: var(--text-secondary);
+}
+.mark {
+  background: none;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.empty {
+  padding: var(--space-6) var(--space-3);
+  text-align: center;
+  color: var(--text-muted);
+}

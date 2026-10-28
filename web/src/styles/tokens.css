@@ -1,0 +1,127 @@
+/*
+ * Rift design tokens: Catppuccin Mocha on an AMOLED-black canvas.
+ * Components read only the semantic layer (bottom half), never raw palette names.
+ */
+
+:root {
+  /* Catppuccin Mocha palette */
+  --ctp-rosewater: #f5e0dc;
+  --ctp-flamingo: #f2cdcd;
+  --ctp-pink: #f5c2e7;
+  --ctp-mauve: #cba6f7;
+  --ctp-red: #f38ba8;
+  --ctp-maroon: #eba0ac;
+  --ctp-peach: #fab387;
+  --ctp-yellow: #f9e2af;
+  --ctp-green: #a6e3a1;
+  --ctp-teal: #94e2d5;
+  --ctp-sky: #89dceb;
+  --ctp-sapphire: #74c7ec;
+  --ctp-blue: #89b4fa;
+  --ctp-lavender: #b4befe;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext1: #bac2de;
+  --ctp-subtext0: #a6adc8;
+  --ctp-overlay2: #9399b2;
+  --ctp-overlay1: #7f849c;
+  --ctp-overlay0: #6c7086;
+  --ctp-surface2: #585b70;
+  --ctp-surface1: #45475a;
+  --ctp-surface0: #313244;
+  --ctp-base: #1e1e2e;
+  --ctp-mantle: #181825;
+  --ctp-crust: #11111b;
+
+  /* Surfaces: page is true black so AMOLED pixels switch off. */
+  --bg-canvas: #000;
+  --bg-panel: var(--ctp-crust);
+  --bg-raised: var(--ctp-mantle);
+  --bg-raised-2: var(--ctp-base);
+  --bg-hover: color-mix(in oklab, var(--ctp-text) 6%, transparent);
+  --bg-selected: color-mix(in oklab, var(--ctp-text) 10%, transparent);
+
+  /* Text. --text-muted stays >= 4.5:1 on --bg-panel. */
+  --text: var(--ctp-text);
+  --text-secondary: var(--ctp-subtext0);
+  --text-muted: var(--ctp-overlay2);
+  --text-on-light: var(--ctp-crust);
+
+  /* Lines */
+  --line: var(--ctp-base);
+  --line-strong: var(--ctp-surface0);
+
+  /* Accent is user-chosen (any Mocha accent); set on <html> by lib/accent.ts. */
+  --accent: var(--ctp-mauve);
+  --accent-ink: var(--ctp-crust);
+  --accent-soft: color-mix(in oklab, var(--accent) 16%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) 34%, transparent);
+
+  /* Status */
+  --danger: var(--ctp-red);
+  --warning: var(--ctp-yellow);
+  --success: var(--ctp-green);
+
+  /* Primary action fill (light pill) */
+  --primary: var(--ctp-text);
+  --primary-hover: #e0e6fa;
+  --primary-ink: var(--ctp-crust);
+
+  /* Type */
+  --font-ui: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", var(--font-ui);
+
+  --text-xs: 0.75rem; /* 12 */
+  --text-sm: 0.8125rem; /* 13 */
+  --text-md: 0.875rem; /* 14 */
+  --text-lg: 1rem; /* 16 */
+  --text-xl: 1.25rem; /* 20 */
+  --text-2xl: 1.75rem; /* 28 */
+  --text-3xl: 2.5rem; /* 40 */
+
+  /* Space (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Shape: bubbly */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  /* Proportional, so a 24px thumbnail keeps a book's corners instead of turning into a pill. 7% of the width, on a 2:3 cover. */
+  --radius-cover: 7% / 4.667%;
+  --radius-card: 22px;
+  --radius-sheet: 28px;
+  --radius-pill: 999px;
+
+  --control-h: 2.5rem; /* 40 */
+  --touch-min: 2.75rem; /* 44 */
+
+  /* Depth: only floating layers cast shadows; on black they read as a soft lift. */
+  --shadow-float: 0 10px 40px -8px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.5);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Critically damped spring: no overshoot, long gentle settle. */
+  --spring: linear(0, 0.082 4.8%, 0.231 9.4%, 0.389 13.9%, 0.532 18.5%, 0.65 23.1%, 0.742 27.6%, 0.813 32.2%, 0.866 36.8%, 0.904 41.3%, 0.932 45.9%, 0.952 50.5%, 0.967 55%, 0.977 59.6%, 0.984 64.2%, 0.989 68.7%, 0.992 73.3%, 0.995 77.9%, 0.996 82.4%, 0.997 87%, 0.998 91.6%, 0.999 96.1%, 1);
+  /* Lightly underdamped (~3% overshoot) for things that pop in. */
+  --spring-pop: linear(0, 0.126 6.3%, 0.354 12.3%, 0.581 18.4%, 0.764 24.4%, 0.891 30.4%, 0.969 36.4%, 1.009 42.5%, 1.025 48.5%, 1.027 54.5%, 1.023 60.5%, 1.016 66.6%, 1.01 72.6%, 1.006 78.6%, 1.002 84.6%, 1.001 90.7%, 1);
+  --dur-fast: 150ms;
+  --dur-base: 260ms;
+  --dur-move: 480ms;
+
+  /* Layout */
+  --sidebar-w: 15rem;
+  --mobile-header-h: 7.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-move: 160ms;
+    --dur-base: 120ms;
+  }
+}

@@ -1,0 +1,24 @@
+# Dependencies & builds
+node_modules/
+dist/
+web/dev-dist/
+server/bin/
+*.exe
+
+# Env
+.env
+.env.local
+*.local
+
+# Editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Kept local: long-form docs and portfolio captures
+docs/
+portfolio/
+PRODUCT.md
+DESIGN.md

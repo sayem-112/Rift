@@ -1,0 +1,148 @@
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: var(--space-8) var(--space-4) calc(env(safe-area-inset-bottom) + var(--space-8));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(22rem, 100%);
+  text-align: center;
+}
+
+.mark {
+  margin-bottom: var(--space-6);
+}
+
+.wordmark {
+  font-size: 3.5rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.tagline {
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-10);
+}
+
+.actions > * {
+  width: 100%;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-move) var(--spring);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-align: left;
+}
+
+.label {
+  padding-left: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 550;
+  color: var(--text-secondary);
+}
+
+.input {
+  height: 3rem;
+  padding-inline: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--ctp-text) 5%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-size: var(--text-lg);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+.input::placeholder {
+  color: var(--text-muted);
+}
+.input:hover {
+  box-shadow: inset 0 0 0 1px var(--ctp-surface1);
+}
+.input:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 1px var(--accent),
+    0 0 0 3px var(--accent-soft);
+}
+.input[aria-invalid="true"] {
+  box-shadow: inset 0 0 0 1px var(--danger);
+}
+
+.error {
+  padding-left: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--danger);
+}
+
+.sent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.sentIcon {
+  display: grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--ctp-surface0);
+  color: var(--text);
+}
+
+.sentTitle {
+  font-size: var(--text-xl);
+}
+
+.sentBody {
+  color: var(--text-secondary);
+}
+.sentBody strong {
+  color: var(--text);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.devNote {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--warning) 10%, transparent);
+  font-size: var(--text-sm);
+  color: var(--warning);
+}
+.devNote a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+
+.privacy {
+  margin-top: var(--space-10);
+  max-width: 30ch;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}

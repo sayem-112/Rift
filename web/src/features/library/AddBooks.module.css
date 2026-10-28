@@ -1,0 +1,53 @@
+.dropzone {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  background: rgb(0 0 0 / 0.45);
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.dropzone::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-3);
+  border-radius: var(--radius-card);
+  border: 2px dashed var(--ctp-surface2);
+}
+
+.dropCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-8) var(--space-10);
+  text-align: center;
+  transition: transform var(--dur-move) var(--spring-pop);
+
+  @starting-style {
+    transform: scale(0.94);
+  }
+}
+
+.dropIcon {
+  color: var(--text);
+  margin-bottom: var(--space-2);
+}
+
+.dropTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dropHint {
+  color: var(--text-secondary);
+}

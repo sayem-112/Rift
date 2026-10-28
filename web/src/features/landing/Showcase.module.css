@@ -1,0 +1,75 @@
+.showcase {
+  position: relative;
+}
+
+.shots {
+  position: relative;
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-right: 12%;
+  padding-bottom: 14%;
+}
+
+.desktop,
+.phone {
+  margin: 0;
+}
+
+.desktop img,
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.desktop {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    inset 0 0 0 1px var(--ctp-base),
+    0 0 0 1px var(--ctp-base),
+    0 60px 120px -40px rgb(0 0 0 / 0.95),
+    0 0 120px -40px color-mix(in oklab, var(--accent) 20%, transparent);
+}
+
+.phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 24%;
+  padding: 0.6%;
+  border-radius: 13% / 6%;
+  background: #0a0a10;
+  box-shadow:
+    inset 0 0 0 1px var(--ctp-surface0),
+    0 40px 80px -24px rgb(0 0 0 / 0.95);
+}
+.phone img {
+  border-radius: 12% / 5.6%;
+}
+
+.note {
+  margin-top: var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* On a phone the desktop capture shrinks past reading; the phone capture leads instead. */
+@media (max-width: 640px) {
+  .shots {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+  .desktop {
+    display: none;
+  }
+  .phone {
+    position: relative;
+    width: min(72%, 18rem);
+    padding: 1.6%;
+  }
+  .note {
+    margin-top: 3rem;
+  }
+}

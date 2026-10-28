@@ -1,0 +1,326 @@
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each step holds the viewport long enough for the sticky visual to land. */
+.step {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-4);
+  min-height: 52vh;
+  padding-block: 14vh 0;
+}
+.step:first-child {
+  padding-top: 8vh;
+}
+
+/* Only the title and number recede; the body text stays readable. */
+.index,
+.stepTitle {
+  opacity: 0.4;
+  transition:
+    opacity var(--dur-move) var(--ease-out),
+    background-color var(--dur-move) var(--ease-out),
+    color var(--dur-move) var(--ease-out),
+    box-shadow var(--dur-move) var(--ease-out);
+}
+.step[data-active] :is(.index, .stepTitle) {
+  opacity: 1;
+}
+
+.index {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+.step[data-active] .index {
+  background: var(--primary);
+  color: var(--primary-ink);
+  box-shadow: none;
+}
+
+.stepTitle {
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  letter-spacing: -0.03em;
+}
+
+.stepBody {
+  max-width: 36ch;
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.inlineVisual {
+  display: none;
+}
+
+.stickyCol {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: calc(50vh - 13rem);
+  height: 26rem;
+}
+
+.visualFrame {
+  height: 100%;
+}
+
+/* Shared surface for all three visuals. */
+.visual {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  background:
+    radial-gradient(70% 60% at 85% 0%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 70%),
+    var(--ctp-crust);
+  box-shadow: inset 0 0 0 1px var(--ctp-base);
+  overflow: hidden;
+}
+
+/* Step 1 */
+.fileChip {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--ctp-base);
+  box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.9), inset 0 0 0 1px var(--ctp-surface0);
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+.fileChip svg {
+  color: var(--ctp-red);
+}
+.fileSize {
+  color: var(--text-muted);
+}
+
+/* A full shelf, so the new book lands among others instead of floating in the panel. */
+.miniGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.4vw, 14px);
+  width: 100%;
+}
+
+.newCover {
+  position: relative;
+  border-radius: var(--radius-cover);
+  box-shadow: 0 0 0 2px var(--accent), 0 18px 34px -14px var(--accent-glow);
+}
+
+.uploading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: inherit;
+  background: rgb(17 17 27 / 0.45);
+}
+.uploading > * {
+  grid-area: 1 / 1;
+}
+.uploadIcon {
+  color: var(--text);
+}
+
+/* Step 2: three devices, one shelf. */
+.devicesVisual {
+  justify-content: center;
+}
+
+.devices {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4%;
+}
+
+.device {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+}
+.device[data-kind="laptop"] {
+  width: 50%;
+}
+.device[data-kind="tablet"] {
+  width: 23%;
+}
+.device[data-kind="phone"] {
+  width: 13%;
+}
+
+.screen {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  padding: 5%;
+  background: #000;
+  box-shadow:
+    inset 0 0 0 1px var(--ctp-surface0),
+    0 24px 40px -20px rgb(0 0 0 / 0.9);
+}
+.device[data-kind="laptop"] .screen {
+  aspect-ratio: 16 / 10;
+  padding: 3.5%;
+  border-radius: 10px 10px 3px 3px;
+}
+/* The laptop's base: a thin deck wider than the screen. */
+.device[data-kind="laptop"] .screen::after {
+  content: "";
+  position: absolute;
+  left: -7%;
+  right: -7%;
+  top: 100%;
+  height: 7px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(var(--ctp-surface0), var(--ctp-base));
+}
+.device[data-kind="tablet"] .screen {
+  aspect-ratio: 3 / 4;
+  padding: 7%;
+  border-radius: 12px;
+}
+.device[data-kind="phone"] .screen {
+  aspect-ratio: 9 / 19;
+  padding: 9% 9%;
+  border-radius: 14px;
+}
+
+.shelf {
+  display: grid;
+  align-content: center;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--ctp-crust);
+  padding: 5cqw;
+}
+.device[data-kind="laptop"] .shelf {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 3cqw;
+}
+.device[data-kind="tablet"] .shelf {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6cqw;
+}
+.device[data-kind="phone"] .shelf {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8cqw;
+  padding: 8cqw;
+}
+
+.deviceName {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  font-weight: 550;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.device[data-kind="laptop"] .deviceName {
+  margin-top: 14px;
+}
+
+.synced {
+  display: grid;
+  color: var(--ctp-green);
+}
+
+/* Step 3 */
+.continue {
+  justify-content: center;
+}
+
+.jumpToast {
+  align-self: center;
+}
+
+.toast {
+  --glass-tint: var(--ctp-base);
+  --glass-opacity: 70%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  font-size: var(--text-md);
+  white-space: nowrap;
+}
+.toast strong {
+  font-weight: 650;
+}
+.undo {
+  margin-left: 6px;
+  font-weight: 650;
+  color: var(--accent);
+}
+
+@media (max-width: 960px) {
+  .story {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .stickyCol {
+    display: none;
+  }
+  .step {
+    min-height: 0;
+    padding-block: 2.5rem;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+  .step:first-child {
+    padding-top: 1rem;
+  }
+  .index,
+  .stepTitle {
+    opacity: 1;
+  }
+  .inlineVisual {
+    display: block;
+    grid-column: 1 / -1;
+    height: 22rem;
+    margin-top: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .deviceName {
+    font-size: var(--text-xs);
+  }
+  .toast {
+    font-size: var(--text-sm);
+    padding: 8px 12px;
+  }
+}

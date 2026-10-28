@@ -1,0 +1,74 @@
+.mark {
+  position: relative;
+  display: inline-flex;
+  color: var(--accent);
+}
+
+.mark svg {
+  position: relative;
+  overflow: visible;
+}
+
+/* Rounded joins soften the tear without blunting the bookmark's notch. */
+.top,
+.bottom {
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+  transform-box: view-box;
+  transition: transform 420ms var(--spring-pop);
+}
+
+.top {
+  fill: currentColor;
+  stroke: currentColor;
+  transform: translate(-1.2px, -1.9px) rotate(-6deg);
+  transform-origin: 12px 8px;
+}
+
+.bottom {
+  fill: color-mix(in oklab, currentColor 40%, var(--ctp-text));
+  stroke: color-mix(in oklab, currentColor 40%, var(--ctp-text));
+  transform: translate(1.1px, 1.5px);
+}
+
+/* Playful marks: the halves open up on hover and snap shut on press. */
+:is(a:hover, button:hover) .playful .top,
+.playful:hover .top {
+  transform: translate(-2px, -3.4px) rotate(-12deg);
+}
+:is(a:hover, button:hover) .playful .bottom,
+.playful:hover .bottom {
+  transform: translate(1.6px, 2.4px) rotate(4deg);
+}
+:is(a:active, button:active) .playful :is(.top, .bottom),
+.playful:active :is(.top, .bottom) {
+  transform: none;
+}
+
+/* A soft bloom made from the mark itself, not a ring or neon edge. */
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -55% -110%;
+  background: radial-gradient(closest-side, var(--accent-glow), transparent);
+  filter: blur(18px);
+  opacity: 0.9;
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.36em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .top,
+  .bottom {
+    transition: none;
+  }
+}

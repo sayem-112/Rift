@@ -1,0 +1,65 @@
+.bar {
+  --fill: var(--accent);
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--ctp-surface0);
+  overflow: hidden;
+}
+/* The fill slides in from the left, so only transform animates and the rounded end keeps its shape. */
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--fill);
+  transform: translateX(calc(var(--value) - 100%));
+  transition: transform var(--dur-move) var(--spring);
+}
+
+.sm {
+  height: 3px;
+}
+.md {
+  height: 6px;
+}
+
+.accent {
+  --fill: var(--accent);
+}
+.success {
+  --fill: var(--success);
+}
+
+.ring {
+  flex: none;
+}
+.ringTrack {
+  fill: none;
+  stroke: rgb(17 17 27 / 0.55);
+}
+.ringValue {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+  transition: stroke-dasharray var(--dur-move) var(--spring);
+}
+.ring.danger .ringValue {
+  stroke: var(--danger);
+}
+
+.spin {
+  animation: spin 1.4s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
+  }
+}

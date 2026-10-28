@@ -1,0 +1,141 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+
+.list > li + li {
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) minmax(8rem, 11rem) minmax(9rem, 13rem) 3rem;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.row:hover {
+  background: var(--bg-hover);
+}
+
+.cover {
+  display: block;
+  width: 2.5rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 550;
+  color: var(--text);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.author {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bar {
+  flex: 1;
+}
+
+.pct {
+  width: 2.5rem;
+  text-align: right;
+  font-size: var(--text-sm);
+  font-weight: 550;
+  color: var(--text-secondary);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.finished {
+  color: var(--success);
+}
+
+.when {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  color: var(--text-muted);
+}
+
+.caret {
+  transition: transform var(--dur-base) var(--spring);
+}
+.row:hover .caret {
+  transform: translateX(2px);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1099px) {
+  .row {
+    grid-template-columns: 2.5rem minmax(0, 1fr) minmax(7rem, 10rem) 2.5rem;
+  }
+  .when {
+    display: none;
+  }
+}
+
+@media (max-width: 599px) {
+  .row {
+    grid-template-columns: 2.75rem minmax(0, 1fr) 1.25rem;
+    grid-template-areas:
+      "cover main end"
+      "cover progress end";
+    row-gap: var(--space-2);
+    column-gap: var(--space-4);
+    padding: var(--space-3) var(--space-1);
+  }
+  .cover {
+    grid-area: cover;
+    width: 2.75rem;
+  }
+  .main {
+    grid-area: main;
+  }
+  .progress {
+    grid-area: progress;
+  }
+  .end {
+    grid-area: end;
+  }
+  .caret {
+    display: none;
+  }
+}

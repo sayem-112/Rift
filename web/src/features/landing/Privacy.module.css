@@ -1,0 +1,48 @@
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: start;
+}
+
+/* A ruled list, not cards: the facts read as one statement. */
+.facts {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  list-style: none;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--line-strong);
+}
+.fact:last-child {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.icon {
+  margin-top: 3px;
+  color: var(--text-secondary);
+}
+
+.factTitle {
+  font-size: var(--text-xl);
+  letter-spacing: -0.02em;
+}
+
+.factBody {
+  margin-top: var(--space-2);
+  max-width: 44ch;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

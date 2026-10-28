@@ -1,0 +1,9 @@
+.local {
+  flex: none;
+  color: var(--text-secondary);
+}
+
+.cloud {
+  flex: none;
+  color: var(--ctp-overlay0);
+}

@@ -1,0 +1,120 @@
+.cover {
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-cover);
+  background:
+    radial-gradient(120% 70% at var(--cover-glint) 0%, rgb(255 255 255 / 0.32), transparent 55%),
+    linear-gradient(var(--cover-angle), var(--cover-from), var(--cover-to));
+  color: var(--ctp-crust);
+}
+
+/* cqw units resolve against .cover only from inside it, so padding lives here. */
+.inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8cqw 8cqw 9cqw;
+}
+
+/* A hairline highlight and a soft foot shade, so the cover reads as an object rather than a swatch. */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.16),
+    inset 0 -40px 60px -40px rgb(17 17 27 / 0.18);
+}
+
+.format {
+  align-self: flex-start;
+  padding: 1.6cqw 4.5cqw;
+  border-radius: var(--radius-pill);
+  background: rgb(17 17 27 / 0.13);
+  font-family: var(--font-ui);
+  font-size: max(7px, 6.4cqw);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 3cqw;
+  min-width: 0;
+}
+
+.author {
+  font-family: var(--font-ui);
+  font-size: max(7px, 7.2cqw);
+  font-weight: 550;
+  line-height: 1.15;
+  color: rgb(17 17 27 / 0.72);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13.5cqw;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+/* Long titles step down so whole words fit the cover's width. */
+.cover[data-length="long"] .title {
+  font-size: 11.5cqw;
+  line-height: 0.98;
+}
+.cover[data-length="longest"] .title {
+  font-size: 9cqw;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+/* Thumbnails: drop secondary text, keep the title shape. */
+@container (width < 72px) {
+  .inner {
+    padding: 9cqw;
+  }
+  .format,
+  .author {
+    display: none;
+  }
+  .title {
+    font-size: 17cqw;
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* Illustrated covers: the art fills the board; a spine shade and hairline make it a book. */
+.edition {
+  background: var(--ctp-crust);
+}
+.edition::after {
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.26), rgb(255 255 255 / 0.1) 2.5%, transparent 7%);
+}
+.art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
